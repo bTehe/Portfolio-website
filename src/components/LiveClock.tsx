@@ -15,9 +15,10 @@ function formatTime(date: Date) {
 }
 
 export default function LiveClock() {
-  const [time, setTime] = useState(() => formatTime(new Date()));
+  const [time, setTime] = useState("--:--:--");
 
   useEffect(() => {
+    setTime(formatTime(new Date()));
     const id = setInterval(() => {
       setTime(formatTime(new Date()));
     }, 1000);

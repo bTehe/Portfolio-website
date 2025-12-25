@@ -9,11 +9,52 @@ const buttonTransition: Transition = { type: "spring", bounce: 0.25, duration: 0
 export default function ContactForm() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [status, setStatus] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus("Message ready to send.");
-    setTimeout(() => setStatus(""), 2000);
+    if (!formRef.current || isSending) {
+      return;
+    }
+
+    const formData = new FormData(formRef.current);
+    const payload = {
+      name: String(formData.get("name") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
+    };
+
+    if (!payload.name || !payload.email || !payload.message) {
+      setStatus("Please fill out all fields.");
+      setTimeout(() => setStatus(""), 2500);
+      return;
+    }
+
+    setIsSending(true);
+    setStatus("Sending...");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setStatus(data?.error ?? "Failed to send message.");
+        return;
+      }
+
+      setStatus("Message sent.");
+      formRef.current.reset();
+    } catch (error) {
+      setStatus("Failed to send message.");
+    } finally {
+      setIsSending(false);
+      setTimeout(() => setStatus(""), 2500);
+    }
   };
 
   const handleTextareaKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -49,11 +90,12 @@ export default function ContactForm() {
         <motion.button
           className="button"
           type="submit"
+          disabled={isSending}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={buttonTransition}
         >
-          Send message
+          {isSending ? "Sending..." : "Send message"}
         </motion.button>
         <span className="helper">or {"\u21b5"} Enter to send</span>
       </div>

@@ -123,6 +123,36 @@ export function XIcon({ className }: IconProps) {
   );
 }
 
+export function ThreadsIcon({ className }: IconProps) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="5.8" stroke="currentColor" strokeWidth="1" />
+      <path
+        d="M10.8 8.2C10.8 9.6 9.7 10.6 8.3 10.6C6.8 10.6 5.8 9.7 5.8 8.2C5.8 6.8 6.8 5.8 8.3 5.8C9.4 5.8 10.2 6.4 10.6 7.2"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10.4 7.2V6.4C10.4 5.2 9.4 4.4 8.2 4.4C6.7 4.4 5.6 5.4 5.6 6.9"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function GitHubIcon({ className }: IconProps) {
   return (
     <svg
@@ -157,6 +187,28 @@ export function LinkedInIcon({ className }: IconProps) {
       <path d="M5 6.5V11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
       <circle cx="5" cy="5" r="0.8" fill="currentColor" />
       <path d="M7.8 11V8.2C7.8 7.3 8.4 6.7 9.2 6.7C10 6.7 10.6 7.3 10.6 8.2V11" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function YouTubeIcon({ className }: IconProps) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect x="2.4" y="4" width="11.2" height="8" rx="2" stroke="currentColor" strokeWidth="1" />
+      <path
+        d="M7 6.3L10 8L7 9.7V6.3Z"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

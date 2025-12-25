@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CheckIcon } from "@/components/Icons";
 
 type CopyEmailHintProps = {
   email: string;
@@ -37,7 +38,12 @@ export default function CopyEmailHint({ email }: CopyEmailHintProps) {
       <span>Press</span>
       <span className="keycap">C</span>
       <span>to copy my email</span>
-      {copied ? <span className="copy-toast">Email copied</span> : null}
+      {copied ? (
+        <span className="copy-toast">
+          <CheckIcon className="copy-toast-icon" />
+          <span>Email copied</span>
+        </span>
+      ) : null}
     </div>
   );
 }
