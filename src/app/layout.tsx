@@ -8,9 +8,105 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteTitle = "Data Science Portfolio | Oleksandr Adamov (Copenhagen)";
+const siteDescription =
+  "Oleksandr Adamov is a data scientist and data analyst based in Copenhagen, Denmark. Data science student portfolio featuring Python, SQL, machine learning, Power BI/Tableau, Azure, and projects in cybersecurity, financial data analysis, and healthcare NLP.";
+
 export const metadata: Metadata = {
-  title: "Oleksandr Adamov | Portfolio",
-  description: "Data Scientist portfolio for Oleksandr Adamov.",
+  title: siteTitle,
+  description: siteDescription,
+  keywords: [
+    "Oleksandr Adamov",
+    "Data Scientist",
+    "Data Analyst",
+    "Copenhagen",
+    "Denmark",
+    "Python",
+    "SQL",
+    "Machine Learning",
+    "Deep Learning",
+    "Neural Networks",
+    "Artificial Intelligence",
+    "Power BI",
+    "Tableau",
+    "Data Analysis",
+    "Data Analytics",
+    "Microsoft Azure",
+    "Azure AI",
+    "AWS",
+    "Cloud Computing",
+    "React",
+    "Full-Stack Development",
+    ".NET",
+    "Agile",
+    "Project Management",
+    "Cybersecurity",
+    "Healthcare NLP",
+    "Financial Data Analysis",
+  ],
+  authors: [{ name: "Oleksandr Adamov" }],
+  creator: "Oleksandr Adamov",
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription,
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Oleksandr Adamov",
+  jobTitle: "Data Scientist and Data Analyst",
+  homeLocation: {
+    "@type": "Place",
+    name: "Ringsted, Denmark",
+  },
+  alumniOf: [
+    {
+      "@type": "CollegeOrUniversity",
+      name: "IT University of Copenhagen",
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      name: "National Aviation University",
+    },
+  ],
+  knowsAbout: [
+    "Python",
+    "SQL",
+    "Machine Learning",
+    "Deep Learning",
+    "Neural Networks",
+    "Artificial Intelligence",
+    "Power BI",
+    "Tableau",
+    "Data Analysis",
+    "Data Analytics",
+    "Microsoft Azure",
+    "Azure AI",
+    "AWS",
+    "Cloud Computing",
+    "React",
+    "Full-Stack Development",
+    ".NET",
+    "Agile",
+    "Project Management",
+    "Cybersecurity",
+    "Healthcare NLP",
+    "Financial Data Analysis",
+  ],
+  sameAs: [
+    "https://www.linkedin.com/in/oleksandr-adamov",
+    "https://github.com/bTehe",
+  ],
 };
 
 export default function RootLayout({
@@ -25,6 +121,10 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://stream.mux.com" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body className={inter.variable}>{children}</body>
     </html>
