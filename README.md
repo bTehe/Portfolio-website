@@ -4,7 +4,7 @@ My personal portfolio built with Next.js (App Router). It’s a single-page site
 
 ## What’s inside
 
-- Smooth UI animations (Framer Motion)
+- Smooth UI animations
 - Project “Work” cards with hover video previews
 - Spotify “top track” card (server-side fetch + embed)
 - Contact form that sends emails via Resend
@@ -12,7 +12,7 @@ My personal portfolio built with Next.js (App Router). It’s a single-page site
 
 ## Tech
 
-Next.js 14, React 18, TypeScript, Framer Motion, HLS.js.
+Next.js 14, React 18, TypeScript, HLS.js.
 
 ## Run locally
 
