@@ -35,7 +35,7 @@ const experiences = [
     company: "adaKon",
     logo: "/images/adaKon.svg",
     description:
-      "Startup CEO and founder focused on entrepreneurship, product development, and agile project management. Led full-stack delivery (Figma, React) for clients in Denmark and produced market research insights.",
+      "Leading a team of web designers and programmers. Was focused on product development, and agile project management. Led full-stack delivery for businesses in Denmark and produced market research insights.",
   },
   {
     start: "2021",
@@ -108,15 +108,16 @@ type WorkProject = {
   overview: string;
   hero: string;
   heroAlt: string;
+  technologies: string[];
   whatIDid?: string[];
   whyItMatters?: string[];
 };
 
 const workProjects: WorkProject[] = [
   {
-    title: "CNN + LSTM Intrusion Detection System",
+    title: "Intrusion Detection System",
     description:
-      "Deep learning for cybersecurity: anomaly detection with a hybrid Convolutional Neural Network (CNN) and LSTM intrusion detection model.",
+      "Deep learning techniques of anomaly detection with a hybrid Convolutional Neural Network (CNN) and LSTM intrusion detection model.",
     tag: "AI / CYBERSECURITY",
     href: "#",
     previewVideo:
@@ -128,6 +129,16 @@ const workProjects: WorkProject[] = [
       "I built a real-time intrusion detection system for cybersecurity as my Bachelor's thesis, turning raw network traffic into a production-ready deep learning application deployable in the cloud.",
     hero: "/images/IDS.png",
     heroAlt: "Intrusion detection system interface for cybersecurity anomaly detection",
+    technologies: [
+      "Python",
+      "SQL",
+      "Machine Learning",
+      "Deep Learning",
+      "CNN",
+      "LSTM",
+      "Cybersecurity",
+      "AWS",
+    ],
     whatIDid: [
       "Designed a hybrid CNN + LSTM model to detect network intrusions in real time",
       "Built an asynchronous Python pipeline for streaming network traffic analysis",
@@ -140,7 +151,7 @@ const workProjects: WorkProject[] = [
     ],
   },
   {
-    title: "Dataset Design & Surplus Detection",
+    title: "Dataset design and surplus detection",
     description:
       "Data engineering and dataset creation with anomaly detection for supply chain analytics in the Nordic energy market.",
     tag: "DATA ENGINEERING / ML",
@@ -154,6 +165,16 @@ const workProjects: WorkProject[] = [
       "I built an end-to-end data engineering pipeline and dataset creation workflow for surplus detection in the Nordic power market, turning grid, market, and weather data into clear anomaly events and explanations for price collapses.",
     hero: "/images/Dataset.png",
     heroAlt: "Dataset design and surplus detection dashboard with energy market analytics",
+    technologies: [
+      "Python",
+      "SQL",
+      "Data Engineering",
+      "Anomaly Detection",
+      "Supply Chain Analytics",
+      "Machine Learning",
+      "Power BI",
+      "Tableau",
+    ],
     whatIDid: [
       "Built a unified hourly dataset across Nordic bidding zones from ENTSO-E/TSOs/eSett + ERA5",
       "Defined surplus and grouped hours into events with severity and grid-stress metrics",
@@ -179,6 +200,16 @@ const workProjects: WorkProject[] = [
       "I reproduced a state-of-the-art healthcare NLP system for automatic ICD coding, moving from published research to verified results on restricted healthcare data using a high-performance computing cluster.",
     hero: "/images/PLM.jpg",
     heroAlt: "Healthcare NLP project for ICD coding on clinical data",
+    technologies: [
+      "Python",
+      "Healthcare NLP",
+      "ICD Coding",
+      "Clinical Data",
+      "Pretrained Language Model",
+      "Transformer",
+      "Deep Learning",
+      "Bioinformatics",
+    ],
     whatIDid: [
       "Reproduced the PLM-ICD model for automatic ICD coding using a pretrained RoBERTa-based language model",
       "Set up and ran large-scale experiments on the MIMIC-III clinical dataset",
@@ -204,6 +235,16 @@ const workProjects: WorkProject[] = [
       "I built a Tableau data story that turns dense WWII datasets into one clear narrative - how Eastern Front battles map to casualty spikes and how those losses reshaped USSR demographics by 1946.",
     hero: "/images/WW2.png",
     heroAlt: "Tableau data visualization of WWII military losses",
+    technologies: [
+      "Tableau",
+      "Data Visualization",
+      "Data Analytics",
+      "Data Interpretation",
+      "Statistical Analysis",
+      "Population Analysis",
+      "Data Storytelling",
+      "Excel",
+    ],
     whatIDid: [
       "Built a mountain-shaped casualties timeline and annotated major events and battles",
       "Highlighted the scale of loss with contextual callouts",
@@ -218,32 +259,32 @@ const workProjects: WorkProject[] = [
 
 const skills = [
   { label: "Python", priority: true },
-  { label: "SQL", priority: true },
+  // { label: "SQL", priority: true },
   { label: "PostgreSQL" },
-  { label: "Machine Learning", priority: true },
+  // { label: "Machine Learning", priority: true },
   { label: "Power BI", priority: true },
   { label: "Tableau", priority: true },
-  { label: "Deep Learning" },
-  { label: "Neural Networks" },
-  { label: "Artificial Intelligence" },
-  { label: "Data Analysis" },
-  { label: "Data Analytics" },
-  { label: "Data Interpretation" },
+  // { label: "Deep Learning" },
+  // { label: "Neural Networks" },
+  // { label: "Artificial Intelligence" },
+  // { label: "Data Analysis" },
+  // { label: "Data Analytics" },
+  // { label: "Data Interpretation" },
   { label: "Microsoft Azure" },
-  { label: "Azure AI" },
+  // { label: "Azure AI" },
   { label: "AWS" },
-  { label: "Cloud Computing" },
-  { label: "Big Data" },
-  { label: "Excel" },
+  // { label: "Cloud Computing" },
+  // { label: "Big Data" },
+  // { label: "Excel" },
   { label: "React" },
   { label: ".NET" },
-  { label: "Full-Stack Development" },
+  // { label: "Full-Stack Development" },
   { label: "JavaScript" },
   { label: "TypeScript" },
   { label: "C++" },
   { label: "C#" },
   { label: "R" },
-  { label: "Agile" },
+  // { label: "Agile" },
 ];
 
 const languages = [
@@ -721,7 +762,6 @@ export default function Home() {
           setSignaturePath(d);
         }
       } catch (error) {
-        // Ignore fetch errors; fallback stays empty.
       }
     };
 
@@ -943,7 +983,10 @@ export default function Home() {
         return;
       }
 
-      const amount = grid.clientWidth * 0.85;
+      const styles = window.getComputedStyle(grid);
+      const gap = parseFloat(styles.columnGap || styles.gap || "0");
+      const card = grid.querySelector<HTMLElement>(".work-card");
+      const amount = card ? card.getBoundingClientRect().width + gap : grid.clientWidth * 0.6;
       grid.scrollBy({ left: dir === "right" ? amount : -amount, behavior: "smooth" });
     };
 
@@ -1186,7 +1229,6 @@ export default function Home() {
       try {
         video.currentTime = 0;
       } catch (error) {
-        // Ignore seek failures.
       }
 
       attemptPlay();
@@ -1213,7 +1255,6 @@ export default function Home() {
         try {
           video.currentTime = 0;
         } catch (error) {
-          // Ignore seek failures.
         }
 
         isOpen = false;
@@ -1728,10 +1769,11 @@ export default function Home() {
                       <Image src="/images/verified.svg" alt="Verified" width={20} height={20} />
                     </span>
                   </div>
-                  <div className="subtitle">Data Scientist &amp; Data Analyst in Copenhagen</div>
+                  <div className="subtitle">Data Scientist and Data Analyst</div>
                 </div>
                 <p className="muted hero-intro">
-                  Hey, I'm Oleksandr, a Data Scientist and Data Analyst, and an IT Student Assistant at{" "}
+                  <span className="hero-intro-line">
+                    Hey, I'm Oleksandr, a Data Scientist and Data Analyst, and an IT Student Assistant at{" "}
                   <span
                     className="se-preview cursor-preview-trigger"
                     data-preview-cursor="schneider-preview"
@@ -1741,13 +1783,22 @@ export default function Home() {
                   >
                     <span className="highlight-strong se-text">Schneider Electric</span>
                     <span className="inline-badge" aria-hidden="true">
-                      <Image src="/images/SE.svg" alt="" width={20} height={20} className="inline-badge-image" />
+                      <Image
+                        src="/images/SE.svg"
+                        alt="Schneider Electric logo"
+                        width={20}
+                        height={20}
+                        className="inline-badge-image"
+                      />
                     </span>
                   </span>{" "}
-                  based in Ringsted, Denmark <span className="flag-badge" aria-hidden="true" />. I focus on data
-                  analytics and automation: KPI dashboards, Python/SQL analysis, Power BI/Tableau reporting, and
-                  machine-learning-ready data pipelines. I am especially interested in financial data analysis and
-                  healthcare data projects.
+                    based in Ringsted, Denmark <span className="flag-badge" aria-hidden="true" />.
+                  </span>
+                  <span className="hero-intro-line hero-intro-line--gap">
+                    I focus on data analytics and automation: KPI dashboards, Python/SQL analysis, Power BI/Tableau
+                    reporting, and machine-learning-ready data pipelines. I am especially interested in financial data
+                    analysis and healthcare data projects.
+                  </span>
                 </p>
                 <CopyEmailHint email="alex04adamov@gmail.com" />
                 <div className="bio-extras">
@@ -1766,7 +1817,12 @@ export default function Home() {
                     <div className="tag-list">
                       {languages.map((language) => (
                         <span key={language.label} className="tag tag-language">
-                          <img className="tag-flag" src={language.flagSrc} alt="" aria-hidden="true" loading="lazy" />
+                          <img
+                            className="tag-flag"
+                            src={language.flagSrc}
+                            alt={`${language.label} flag`}
+                            loading="lazy"
+                          />
                           {language.label}
                         </span>
                       ))}
@@ -1781,7 +1837,7 @@ export default function Home() {
                 href="mailto:alex04adamov@gmail.com"
                 aria-label="Email"
               >
-                <img src="/images/email.svg" alt="" aria-hidden="true" />
+                <img src="/images/email.svg" alt="Email icon" />
               </a>
               <a
                 className="sidebar-social-bottom-link"
@@ -1790,7 +1846,7 @@ export default function Home() {
                 rel="noreferrer"
                 aria-label="LinkedIn"
               >
-                <img src="/images/linkedin.svg" alt="" aria-hidden="true" />
+                <img src="/images/linkedin.svg" alt="LinkedIn icon" />
               </a>
               <a
                 className="sidebar-social-bottom-link"
@@ -1799,7 +1855,7 @@ export default function Home() {
                 rel="noreferrer"
                 aria-label="GitHub"
               >
-                <img src="/images/github.svg" alt="" aria-hidden="true" />
+                <img src="/images/github.svg" alt="GitHub icon" />
               </a>
             </div>
           </div>
@@ -1861,8 +1917,8 @@ export default function Home() {
                 <div className="section-header">
                   <span className="label">EXPERIENCE</span>
                   <p className="muted">
-                    Throughout my career, I've worked across data analysis, automation, and IT operations, including
-                    IT support, project management, dashboarding, and end-to-end analytics workflows. Here's a brief
+                    Throughout my career, I've worked across data analysis and automation, including:
+                    project management, dashboarding, and end-to-end analytics workflows. Here's a brief
                     overview.
                   </p>
                 </div>
@@ -1876,7 +1932,7 @@ export default function Home() {
                         <div className="role-line">
                           <span>{item.role} at</span>
                           <span className="company-logo" aria-hidden="true">
-                            <Image src={item.logo} alt="" width={20} height={20} />
+                            <Image src={item.logo} alt={`${item.company} logo`} width={20} height={20} />
                           </span>
                           <span>{item.company}</span>
                         </div>
@@ -1898,8 +1954,6 @@ export default function Home() {
                 <div className="section-header">
                   <span className="label">EDUCATION</span>
                   <p className="muted">
-                    Academic background and ongoing studies in Data Science and Software Engineering in Copenhagen,
-                    Denmark.
                   </p>
                 </div>
                 <div className="timeline">
@@ -1913,7 +1967,7 @@ export default function Home() {
                           <span>{item.degree}</span>
                           <span>at</span>
                           <span className="company-logo" aria-hidden="true">
-                            <Image src={item.logo} alt="" width={20} height={20} />
+                            <Image src={item.logo} alt={`${item.school} logo`} width={20} height={20} />
                           </span>
                           <span>{item.school}</span>
                         </div>
@@ -1945,7 +1999,12 @@ export default function Home() {
                       whileHover={{ scale: 1.1 }}
                       transition={hoverTransition}
                     >
-                      <img className="stack-icon" src={icon.icon} alt="" aria-hidden="true" loading="lazy" />
+                      <img
+                        className="stack-icon"
+                        src={icon.icon}
+                        alt={`${icon.label} logo`}
+                        loading="lazy"
+                      />
                       <span className="stack-label mono">{icon.label}</span>
                     </motion.a>
                   ))}
@@ -1978,7 +2037,7 @@ export default function Home() {
                       <span className="writing-date mono">{item.date}</span>
                       <span className="writing-title">{item.title}</span>
                       <span className="writing-time mono">
-                        <img className="writing-icon" src="/images/Microsoft.svg" alt="" aria-hidden="true" />
+                        <img className="writing-icon" src="/images/Microsoft.svg" alt="Microsoft logo" />
                       </span>
                     </motion.a>
                   ))}
@@ -2041,7 +2100,7 @@ export default function Home() {
                     return (
                       <div key={link.label} className="link-row">
                         <span className="link-label">
-                          <img className="contact-icon" src={link.iconSrc} alt="" aria-hidden="true" />
+                          <img className="contact-icon" src={link.iconSrc} alt={`${link.label} icon`} />
                           {link.label}
                         </span>
                         <motion.a
@@ -2258,6 +2317,16 @@ export default function Home() {
                   </div>
                 </motion.div>
               ) : null}
+              <motion.div className="work-modal-section" variants={workModalItemVariants} custom={0.42}>
+                <span className="label">Technologies used</span>
+                <div className="tag-list">
+                  {activeWork.technologies.map((tech) => (
+                    <span key={tech} className="tag">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
           </motion.div>
         )}

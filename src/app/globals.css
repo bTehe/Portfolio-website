@@ -344,7 +344,7 @@ main > section.container.section:first-of-type {
 }
 
 #experience.section {
-  gap: 10px;
+  gap: 16px;
 }
 
 .education-section {
@@ -462,6 +462,14 @@ main > section.container.section:first-of-type {
 
 .hero-intro {
   margin-top: 20px;
+}
+
+.hero-intro-line {
+  display: block;
+}
+
+.hero-intro-line--gap {
+  margin-top: 6px;
 }
 
 .se-preview {
