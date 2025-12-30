@@ -19,6 +19,7 @@ import {
   XIcon,
 } from "@/components/Icons";
 
+
 const experiences = [
   {
     start: "2024",
