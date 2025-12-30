@@ -4,9 +4,23 @@ export const runtime = "nodejs";
 
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const TOP_TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=1";
+const TRACK_CACHE_TTL_MS = 5 * 60 * 1000;
+const REQUEST_TIMEOUT_MS = 4000;
+const TOKEN_EXPIRY_BUFFER_MS = 30 * 1000;
 
 type SpotifyTokenResponse = {
   access_token?: string;
+  expires_in?: number;
+};
+
+type CachedTrack = {
+  payload: Record<string, unknown>;
+  expiresAt: number;
+};
+
+type CachedToken = {
+  token: string;
+  expiresAt: number;
 };
 
 type TokenResult =
@@ -46,10 +60,37 @@ const parseErrorBody = async (response: Response) => {
   }
 };
 
+const getCaches = () => {
+  const globalScope = globalThis as typeof globalThis & {
+    __spotifyTrackCache?: CachedTrack;
+    __spotifyTokenCache?: CachedToken;
+  };
+
+  return globalScope;
+};
+
+const fetchWithTimeout = async (input: RequestInfo, init: RequestInit, timeoutMs: number) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
+
 const getAccessToken = async (): Promise<TokenResult> => {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
   const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
+  const caches = getCaches();
+
+  if (caches.__spotifyTokenCache) {
+    const { token, expiresAt } = caches.__spotifyTokenCache;
+    if (Date.now() + TOKEN_EXPIRY_BUFFER_MS < expiresAt) {
+      return { accessToken: token };
+    }
+  }
 
   if (!clientId || !refreshToken) {
     return { error: "Missing Spotify credentials.", status: 500 };
@@ -71,12 +112,25 @@ const getAccessToken = async (): Promise<TokenResult> => {
 
   body.set("client_id", clientId);
 
-  const tokenRes = await fetch(TOKEN_ENDPOINT, {
-    method: "POST",
-    headers,
-    body,
-    cache: "no-store",
-  });
+  let tokenRes: Response;
+  try {
+    tokenRes = await fetchWithTimeout(
+      TOKEN_ENDPOINT,
+      {
+        method: "POST",
+        headers,
+        body,
+        cache: "no-store",
+      },
+      REQUEST_TIMEOUT_MS
+    );
+  } catch (error) {
+    const message =
+      error instanceof Error && error.name === "AbortError"
+        ? "Spotify token request timed out."
+        : "Spotify token request failed.";
+    return { error: message, status: 504 };
+  }
 
   if (!tokenRes.ok) {
     const details = await parseErrorBody(tokenRes);
@@ -94,26 +148,60 @@ const getAccessToken = async (): Promise<TokenResult> => {
     return { error: "Missing access token.", status: 500 };
   }
 
+  if (tokenJson.expires_in) {
+    caches.__spotifyTokenCache = {
+      token: tokenJson.access_token,
+      expiresAt: Date.now() + tokenJson.expires_in * 1000,
+    };
+  }
+
   return { accessToken: tokenJson.access_token };
 };
 
 export const GET = async () => {
+  const caches = getCaches();
+  if (caches.__spotifyTrackCache && Date.now() < caches.__spotifyTrackCache.expiresAt) {
+    return buildResponse(caches.__spotifyTrackCache.payload, 200, "s-maxage=300, stale-while-revalidate=1800");
+  }
+
   const tokenResult = await getAccessToken();
   if ("error" in tokenResult) {
+    if (caches.__spotifyTrackCache) {
+      return buildResponse(caches.__spotifyTrackCache.payload, 200, "s-maxage=60, stale-while-revalidate=600");
+    }
     return buildError(tokenResult.error, tokenResult.status, tokenResult.details);
   }
 
-  const topRes = await fetch(TOP_TRACKS_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${tokenResult.accessToken}`,
-    },
-    cache: "no-store",
-  });
+  let topRes: Response;
+  try {
+    topRes = await fetchWithTimeout(
+      TOP_TRACKS_ENDPOINT,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenResult.accessToken}`,
+        },
+        cache: "no-store",
+      },
+      REQUEST_TIMEOUT_MS
+    );
+  } catch (error) {
+    if (caches.__spotifyTrackCache) {
+      return buildResponse(caches.__spotifyTrackCache.payload, 200, "s-maxage=60, stale-while-revalidate=600");
+    }
+    const message =
+      error instanceof Error && error.name === "AbortError"
+        ? "Spotify request timed out."
+        : "Spotify request failed.";
+    return buildError(message, 504);
+  }
 
   if (!topRes.ok) {
     const details = await parseErrorBody(topRes);
     const code =
       details && typeof details === "object" && "error" in details ? ` (${(details as any).error})` : "";
+    if (caches.__spotifyTrackCache) {
+      return buildResponse(caches.__spotifyTrackCache.payload, 200, "s-maxage=60, stale-while-revalidate=600");
+    }
     return buildError(
       `Top tracks fetch failed (${topRes.status} ${topRes.statusText}).${code}`,
       500,
@@ -142,11 +230,18 @@ export const GET = async () => {
   const album: string = track.album?.name ?? "";
   const embedUrl = trackId ? `https://open.spotify.com/embed/track/${trackId}` : "";
 
-  return buildResponse({
+  const payload = {
     trackUrl,
     imageUrl,
     title,
-    subtitle: album ? `${artists} • ${album}` : artists,
+    subtitle: album ? `${artists} - ${album}` : artists,
     embedUrl,
-  });
+  };
+
+  caches.__spotifyTrackCache = {
+    payload,
+    expiresAt: Date.now() + TRACK_CACHE_TTL_MS,
+  };
+
+  return buildResponse(payload);
 };

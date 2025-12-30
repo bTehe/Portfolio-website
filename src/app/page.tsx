@@ -6,6 +6,7 @@ import { AnimatePresence, cubicBezier, motion, useReducedMotion, type Transition
 import CopyEmailHint from "@/components/CopyEmailHint";
 import ContactForm from "@/components/ContactForm";
 import LiveClock from "@/components/LiveClock";
+import { apiUrl } from "@/lib/api";
 import {
   ClockIcon,
   ExternalArrow,
@@ -711,7 +712,7 @@ export default function Home() {
 
     const loadTopTrack = async () => {
       try {
-        const response = await fetch("/api/personal-track", { cache: "no-store" });
+        const response = await fetch(apiUrl("/api/personal-track"), { cache: "no-store" });
         const data = await response.json().catch(() => null);
 
         if (!response.ok) {
@@ -777,7 +778,7 @@ export default function Home() {
 
     const loadTemperature = async () => {
       try {
-        const response = await fetch("/api/weather", { cache: "no-store" });
+        const response = await fetch(apiUrl("/api/weather"), { cache: "no-store" });
         if (!response.ok) {
           return;
         }
