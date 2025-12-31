@@ -118,6 +118,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q8Y6LHYL75"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-Q8Y6LHYL75');",
+          }}
+        />
         <link rel="preconnect" href="https://stream.mux.com" />
         <link rel="dns-prefetch" href="https://stream.mux.com" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
