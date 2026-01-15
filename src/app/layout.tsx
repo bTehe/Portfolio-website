@@ -59,6 +59,11 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
   },
+  icons: {
+    icon: [{ url: "/images/logo.svg", type: "image/svg+xml" }],
+    shortcut: ["/images/logo.svg"],
+    apple: ["/images/logo.svg"],
+  },
 };
 
 const structuredData = {
