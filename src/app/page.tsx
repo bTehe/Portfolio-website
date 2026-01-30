@@ -88,6 +88,26 @@ const certifications = [
   },
   {
     date: "2025",
+    title: "Computer Vision in Microsoft Azure",
+    href: "https://www.coursera.org/account/accomplishments/verify/B701NF8UH36V",
+  },
+  {
+    date: "2025",
+    title: "Microsoft Azure Machine Learning",
+    href: "https://www.coursera.org/account/accomplishments/verify/CP6CLAKQBMV7",
+  },
+  {
+    date: "2025",
+    title: "Modern Data Warehouse Analytics in Microsoft Azure",
+    href: "https://www.coursera.org/account/accomplishments/verify/CKPFRP2DKHF2",
+  },
+  {
+    date: "2025",
+    title: "Natural Language Processing in Microsoft Azure",
+    href: "https://www.coursera.org/account/accomplishments/verify/RIOA1JHX51YG",
+  },
+  {
+    date: "2025",
     title: "Agile and Hybrid Approaches",
     href: "https://www.coursera.org/account/accomplishments/verify/Z0BE3RTT4HR5",
   },
