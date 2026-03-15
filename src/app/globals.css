@@ -246,6 +246,7 @@ main {
 .mainStack.alignedStack {
   transform: none;
   position: relative;
+  margin-inline: auto;
 }
 
 .mainStack.alignedStack::after {
@@ -1171,9 +1172,10 @@ body.work-scroll-active .cursor-dot {
 
 .stack-label {
   position: absolute;
-  top: calc(100% + 8px);
+  bottom: calc(100% + 8px);
+  left: 50%;
   opacity: 0;
-  transform: translateY(-4px);
+  transform: translate(-50%, 4px);
   padding: 4px 10px;
   border-radius: 999px;
   background: #1c1c1c;
@@ -1191,7 +1193,7 @@ body.work-scroll-active .cursor-dot {
 
 .stack-item:hover .stack-label {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
 }
 
 .stack-icon {
@@ -1358,10 +1360,10 @@ body.work-scroll-active .cursor-dot {
   height: min-content;
   justify-content: flex-start;
   overflow: hidden;
-  padding: 0 8px;
+  padding: 0 0px;
   position: relative;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .spotify-embed-slot {
@@ -1370,7 +1372,7 @@ body.work-scroll-active .cursor-dot {
   overflow: hidden;
   position: relative;
   width: 100%;
-  border-radius: 20px;
+  border-radius: 18px;
   background: #141414;
   border: 1px solid #1f1f1f;
 }

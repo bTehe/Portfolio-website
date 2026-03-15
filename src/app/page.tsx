@@ -85,36 +85,64 @@ const certifications = [
     date: "2025",
     title: "Artificial Intelligence on Microsoft Azure",
     href: "https://www.coursera.org/account/accomplishments/verify/SU4S72QLQBPK",
+    icon: "/images/Microsoft.svg",
+    iconAlt: "Microsoft Azure logo",
   },
   {
     date: "2025",
     title: "Computer Vision in Microsoft Azure",
     href: "https://www.coursera.org/account/accomplishments/verify/B701NF8UH36V",
+    icon: "/images/Microsoft.svg",
+    iconAlt: "Microsoft Azure logo",
   },
   {
     date: "2025",
     title: "Microsoft Azure Machine Learning",
     href: "https://www.coursera.org/account/accomplishments/verify/CP6CLAKQBMV7",
+    icon: "/images/Microsoft.svg",
+    iconAlt: "Microsoft Azure logo",
   },
   {
     date: "2025",
     title: "Modern Data Warehouse Analytics in Microsoft Azure",
     href: "https://www.coursera.org/account/accomplishments/verify/CKPFRP2DKHF2",
+    icon: "/images/Microsoft.svg",
+    iconAlt: "Microsoft Azure logo",
   },
   {
     date: "2025",
     title: "Natural Language Processing in Microsoft Azure",
     href: "https://www.coursera.org/account/accomplishments/verify/RIOA1JHX51YG",
+    icon: "/images/Microsoft.svg",
+    iconAlt: "Microsoft Azure logo",
+  },
+  {
+    date: "2025",
+    title: "Fundamentals of Financial Analysis",
+    href: "https://www.coursera.org/account/accomplishments/verify/NFJF69Y5ZNB1",
+    icon: "/images/London Business School.svg",
+    iconAlt: "London Business School logo",
+  },
+  {
+    date: "2025",
+    title: "Data Analytics and Databases on AWS",
+    href: "https://www.coursera.org/account/accomplishments/verify/JW527RE7UG19",
+    icon: "/images/AWS.svg",
+    iconAlt: "AWS logo",
   },
   {
     date: "2025",
     title: "Agile and Hybrid Approaches",
     href: "https://www.coursera.org/account/accomplishments/verify/Z0BE3RTT4HR5",
+    icon: "/images/Microsoft.svg",
+    iconAlt: "Microsoft logo",
   },
   {
     date: "2025",
     title: "Program Management Fundamentals",
     href: "https://www.coursera.org/account/accomplishments/verify/BHLUHOW96DAQ",
+    icon: "/images/Microsoft.svg",
+    iconAlt: "Microsoft logo",
   },
 ];
 
@@ -451,6 +479,12 @@ const stackIcons = [
     href: "https://azure.microsoft.com/",
   },
   {
+    id: "aws",
+    label: "AWS",
+    icon: "/images/AWS.svg",
+    href: "https://aws.amazon.com/",
+  },
+  {
     id: "powerbi",
     label: "Power BI",
     icon: "/images/PowerBI.svg",
@@ -461,6 +495,12 @@ const stackIcons = [
     label: "Tableau",
     icon: "/images/Tableau.svg",
     href: "https://www.tableau.com/",
+  },
+  {
+    id: "alteryx",
+    label: "Alteryx",
+    icon: "/images/Alteryx.svg",
+    href: "https://www.alteryx.com/",
   },
   {
     id: "docker",
@@ -2043,7 +2083,7 @@ export default function Home() {
               >
                 <span className="label">CERTIFICATIONS</span>
                 <p className="muted">
-                  Microsoft Azure AI credentials with Agile and program management certifications.
+                  Microsoft Azure, AWS, and Coursera certifications in AI, analytics, and program management.
                 </p>
                 <div className="writing-list">
                   {certifications.map((item) => (
@@ -2059,7 +2099,7 @@ export default function Home() {
                       <span className="writing-date mono">{item.date}</span>
                       <span className="writing-title">{item.title}</span>
                       <span className="writing-time mono">
-                        <img className="writing-icon" src="/images/Microsoft.svg" alt="Microsoft logo" />
+                        <img className="writing-icon" src={item.icon} alt={item.iconAlt} />
                       </span>
                     </motion.a>
                   ))}
@@ -2075,7 +2115,7 @@ export default function Home() {
                 transition={revealTransition}
               >
                 <span className="label">PERSONAL</span>
-                <p className="muted">In my spare time, I enjoy playing the piano and designing websites and marketing campaigns</p>
+                <p className="muted">In my spare time, I enjoy playing the piano, doing sports, swimming, and designing websites and marketing campaigns</p>
                 <div>
                   <div className="personal-card">
                     <div className="spotify-title">Most played</div>
