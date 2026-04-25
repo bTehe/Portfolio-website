@@ -22,6 +22,15 @@ import {
 
 const experiences = [
   {
+    start: "2026",
+    end: "NOW",
+    role: "Student Analyst in Workforce Intelligence",
+    company: "Novo Nordisk",
+    logo: "/images/Novo.svg",
+    description:
+      "Transforming workforce data into proactive people insights by supporting scalable analytics, intuitive decision-support solutions, and AI adoption. Partnering with senior stakeholders and SVPs to simplify processes, drive adoption, and turn workforce intelligence into measurable organisational value.",
+  },
+  {
     start: "2024",
     end: "NOW",
     role: "IT Student Assistant",
@@ -1835,26 +1844,26 @@ export default function Home() {
                 </div>
                 <p className="muted hero-intro">
                   <span className="hero-intro-line">
-                    Hey, I'm Oleksandr, a Data Scientist and Data Analyst, and an IT Student Assistant at{" "}
+                    Hey, I'm Oleksandr, a Data Scientist and Data Analyst, and a Student Analyst in Workforce Intelligence at{" "}
                   <span
                     className="se-preview cursor-preview-trigger"
-                    data-preview-cursor="schneider-preview"
-                    onPointerEnter={handleCursorEnter}
-                    onPointerMove={handleCursorMove}
-                    onPointerLeave={handleCursorLeave}
+                    // data-preview-cursor="schneider-preview"
+                    // onPointerEnter={handleCursorEnter}
+                    // onPointerMove={handleCursorMove}
+                    // onPointerLeave={handleCursorLeave}
                   >
-                    <span className="highlight-strong se-text">Schneider Electric</span>
+                    <span className="highlight-strong se-text">Novo Nordisk</span>
                     <span className="inline-badge" aria-hidden="true">
                       <Image
-                        src="/images/SE.svg"
-                        alt="Schneider Electric logo"
+                        src="/images/Novo.svg"
+                        alt="Novo Nordisk logo Oleksandr Adamov"
                         width={20}
                         height={20}
                         className="inline-badge-image"
                       />
                     </span>
                   </span>{" "}
-                    based in Ringsted, Denmark <span className="flag-badge" aria-hidden="true" />.
+                    based in Bagsværd, Denmark <span className="flag-badge" aria-hidden="true" />.
                   </span>
                   <span className="hero-intro-line hero-intro-line--gap">
                     I focus on data analytics and automation: KPI dashboards, Python/SQL analysis, Power BI/Tableau
