@@ -9,7 +9,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteTitle = "Data Science Portfolio | Oleksandr Adamov (Copenhagen)";
+const siteTitle = "Oleksandr Adamov";
 const siteDescription =
   "Oleksandr Adamov is a data scientist and data analyst based in Copenhagen, Denmark. Data science student portfolio featuring Python, SQL, machine learning, Power BI/Tableau, Azure, and projects in cybersecurity, financial data analysis, and healthcare NLP.";
 
@@ -47,12 +47,18 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Oleksandr Adamov" }],
   creator: "Oleksandr Adamov",
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, 
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+},
   openGraph: {
     title: siteTitle,
     description: siteDescription,
     type: "website",
     locale: "en_US",
+    url: "https://www.olead.me/",
   },
   twitter: {
     card: "summary",
