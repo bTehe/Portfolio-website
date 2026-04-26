@@ -47,6 +47,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Oleksandr Adamov" }],
   creator: "Oleksandr Adamov",
+  alternates: {
+    canonical: 'https://www.olead.me/',
+  },
   robots: { index: true, follow: true, 
     googleBot: {
       index: true,
