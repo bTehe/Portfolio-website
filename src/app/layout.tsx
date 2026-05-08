@@ -12,8 +12,10 @@ const inter = Inter({
 const siteTitle = "Oleksandr Adamov";
 const siteDescription =
   "Oleksandr Adamov is a data scientist and data analyst based in Copenhagen, Denmark. Data science student portfolio featuring Python, SQL, machine learning, Power BI/Tableau, Azure, and projects in cybersecurity, financial data analysis, and healthcare NLP.";
+const siteUrl = "https://www.olead.me";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
   keywords: [
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Oleksandr Adamov" }],
   creator: "Oleksandr Adamov",
   alternates: {
-    canonical: 'https://www.olead.me/',
+    canonical: "/",
   },
   robots: { index: true, follow: true, 
     googleBot: {
@@ -61,7 +63,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     type: "website",
     locale: "en_US",
-    url: "https://www.olead.me/",
+    url: siteUrl,
   },
   twitter: {
     card: "summary",
